@@ -14,9 +14,9 @@
 File	Description
 
 IPTOR.py	Python script to automatically change IP using Tor and the stem library
-Install.sh	Shell script to fully configure your system to route all traffic through Tor
+Install-tor.sh	Shell script to fully configure your system to route all traffic through Tor
 requirements.txt	Python dependencies (stem, requests)
-INSTALL.md	Step-by-step installation instructions
+	Step-by-step installation instructions
 
 
 
@@ -51,8 +51,8 @@ pip3 install -r requirements.txt
 2️⃣ Configure full-system Tor routing:
 
 ```
-chmod +x Install.sh
-sudo ./Install.sh
+chmod +x Install-tor.sh
+sudo ./Install-tor.sh
 ```
 
 3️⃣ Launch the tool:
@@ -115,6 +115,11 @@ curl https://api.ipify.org
 
 Compare the results and verify if your IP is masked 🔍
 
+---
+warning ⚠️
+
+• Do not write in the request when running the tool to change the IP for less than 10 seconds, otherwise a problem will occur⚠️
+----
 
 ---
 
@@ -135,7 +140,7 @@ proxychains firefox
 
 Name: القيـــــــــــــــآدهہ‌‏ آلزعيـــم
 
-Telegram: @A_Y_TR
+Telegram: t.me/@A_Y_TR
 
 Channel: https://t.me/cybersecurityTemDF
 
