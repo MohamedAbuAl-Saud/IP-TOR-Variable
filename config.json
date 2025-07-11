@@ -1,0 +1,6 @@
+{
+  "interval": 60,
+  "count": 10,
+  "tor_control_port": 9051,
+  "tor_proxy_port": 9050
+}
