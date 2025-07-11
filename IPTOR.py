@@ -13,6 +13,9 @@ TOR_PROXY = {
     'https': 'socks5h://127.0.0.1:9050'
 }
 
+if os.path.exists("log.txt"):
+    os.remove("log.txt")
+
 def clear_screen():
     if platform.system() == "Windows":
         os.system("cls")
@@ -126,6 +129,10 @@ def reload_tor_ip():
     except:
         return False
 
+def log_entry(text):
+    with open("log.txt", "a") as log:
+        log.write(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - {text}\n")
+
 def run_loop():
     try:
         interval = int(input("\n\033[1;36mTime between IP changes (seconds): \033[0m"))
@@ -138,6 +145,7 @@ def run_loop():
 
     i = 0
     previous_ip = None
+    used_ips = set()
 
     while True:
         if count != 0 and i >= count:
@@ -153,10 +161,14 @@ def run_loop():
 
         if not success or ip is None:
             print(f"\033[1;31m{prefix} Failed to get new IP.\033[0m")
-        elif ip == previous_ip:
-            print(f"\033[1;33m{prefix} IP didn't change.\033[0m")
+            log_entry(f"{prefix} Failed to get new IP")
+        elif ip in used_ips:
+            print(f"\033[1;33m{prefix} Duplicate IP skipped:\033[0m {ip}")
+            log_entry(f"{prefix} Duplicate IP skipped: {ip}")
         else:
             print(f"\033[1;32m{prefix} New IP:\033[0m {ip}")
+            log_entry(f"{prefix} New IP: {ip}")
+            used_ips.add(ip)
             previous_ip = ip
             i += 1 if count != 0 else 0
 
@@ -171,6 +183,7 @@ def main():
     if not is_tor_running():
         print("\n\033[1;31m[✘] Tor is not running or control port is not accessible.\033[0m")
         print("\033[1;33m[!] Make sure Tor is started with 'tor' command and ControlPort is enabled.\033[0m")
+        log_entry("Tor not running or control port inaccessible")
         return
 
     run_loop()
